@@ -2,11 +2,18 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.gradient-bg-welcome{
-  background-image: linear-gradient(to right, #201e42, #1f1e45, #1d1f48, #1a1f4c, #17204f)
+.gradient-bg-welcome {
+  background-image: linear-gradient(
+    to right,
+    #201e42,
+    #1f1e45,
+    #1d1f48,
+    #1a1f4c,
+    #17204f
+  );
 }

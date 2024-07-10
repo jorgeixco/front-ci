@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-import { useProduct } from "./hooks/useProduct";
+import React from 'react';
+import { useProduct } from './hooks/useProduct';
 
 function App() {
   const { products } = useProduct();

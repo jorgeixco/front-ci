@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-const URL = "https://back-ci.onrender.com";
+const URL = 'https://back-ci.onrender.com';
 
 export const useProduct = () => {
   const [products, setProducts] = useState(null);
