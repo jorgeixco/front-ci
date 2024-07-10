@@ -6,7 +6,7 @@ function App() {
   const { products } = useProduct();
 
   return (
-    <div className="gradient-bg-welcome w-[100%] h-[100%] p-4">
+    <div className="gradient-bg-welcome w-[100%] h-[100%] p-4 min-h-screen">
       <div className="flex gap-6 border-b-[5px] border-[#e97d05] justify-center w-[95%] m-auto mb-6">
         <h1 className="font-text text-3xl cursor-pointer text-[#e97d05]">
           Lista de productos
