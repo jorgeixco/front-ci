@@ -45,9 +45,20 @@ jobs:
             echo "❌ Linting errors detected."
             exit 1
           fi
+
       - name: Run format
-        run: pnpm format
-        
+        run: pnpm run format
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check for changes
+        run: |
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Apply formatting changes" && git push
+          
       - name: Start application
         run: pnpm start &
         env:

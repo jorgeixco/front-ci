@@ -36,12 +36,12 @@ export const ViewObject = ({
           />
         </li>
       </ul>
-                                                                          <button
-                                                                            className="bg-[#e97d05] text-white p-2 rounded-md mt-4 cursor-pointer justify-center flex items-center m-auto w-80"
-                                                                            onClick={() => setProduct(null)                  }
-                                                                          >
-                                                                            BACK
-                                                                          </button>
+      <button
+        className="bg-[#e97d05] text-white p-2 rounded-md mt-4 cursor-pointer justify-center flex items-center m-auto w-80"
+        onClick={() => setProduct(null)}
+      >
+        BACK
+      </button>
     </div>
   );
 };
