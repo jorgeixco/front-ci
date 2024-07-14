@@ -27,6 +27,7 @@ jobs:
 
       - name: Set up pnpm
         run: |
+          export SHELL=$(which bash)
           pnpm setup
           echo "::add-path::$(pnpm config get prefix)/bin"
         shell: bash
@@ -68,6 +69,7 @@ jobs:
 
       - name: Set up pnpm
         run: |
+          export SHELL=$(which bash)
           pnpm setup
           echo "::add-path::$(pnpm config get prefix)/bin"
         shell: bash
