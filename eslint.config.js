@@ -7,7 +7,8 @@ import { fixupConfigRules } from '@eslint/compat';
 
 export default [
   {
-    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'], // Incluye todos los archivos que deseas analizar
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+    ignores: ['dist'],
   },
   {
     languageOptions: {

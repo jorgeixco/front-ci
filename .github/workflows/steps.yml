@@ -37,7 +37,14 @@ jobs:
           CI: true
 
       - name: Run ESLint
-        run: pnpm run lint
+        run: |
+          npx eslint . --ignore-pattern 'dist' --ignore-pattern 'coverage' --ignore-pattern 'cypress/support/component.js' --max-warnings 0
+          if [ $? -eq 0 ]; then
+            echo "✅ No linting errors found."
+          else
+            echo "❌ Linting errors detected."
+            exit 1
+          fi
 
       - name: Start application
         run: pnpm start &
