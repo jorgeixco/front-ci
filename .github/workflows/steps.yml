@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Verify Vite Installation
+        run: pnpm list vite
+
       - name: Start application
         run: pnpm start &
         env:
@@ -65,6 +68,9 @@ jobs:
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build Project Artifacts
         run: pnpm run build
