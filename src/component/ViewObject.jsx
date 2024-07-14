@@ -10,7 +10,7 @@ export const ViewObject = ({
   setProduct,
 }) => {
   return (
-    <div className="gradient-bg-welcome w-[100%] h-[100%] p-4 min-h-screen">
+    <div className="gradient-bg-welcome w-[100%] h-[100%] p-4 min-h-screen                              ">
       <div className="flex gap-6 border-b-[5px] border-[#e97d05] justify-center w-[95%] m-auto mb-6">
         <h1 className="font-text text-3xl cursor-pointer text-[#e97d05]">
           Product {nameObject}
@@ -36,12 +36,12 @@ export const ViewObject = ({
           />
         </li>
       </ul>
-      <button
-        className="bg-[#e97d05] text-white p-2 rounded-md mt-4 cursor-pointer justify-center flex items-center m-auto w-80"
-        onClick={() => setProduct(null)}
-      >
-        BACK
-      </button>
+                                                                          <button
+                                                                            className="bg-[#e97d05] text-white p-2 rounded-md mt-4 cursor-pointer justify-center flex items-center m-auto w-80"
+                                                                            onClick={() => setProduct(null)                  }
+                                                                          >
+                                                                            BACK
+                                                                          </button>
     </div>
   );
 };

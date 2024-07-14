@@ -45,7 +45,9 @@ jobs:
             echo "❌ Linting errors detected."
             exit 1
           fi
-
+      - name: Run format
+        run: pnpm format
+        
       - name: Start application
         run: pnpm start &
         env:
