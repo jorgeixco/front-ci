@@ -21,13 +21,10 @@ describe('main.jsx', () => {
     rootElement.id = 'root';
     document.body.appendChild(rootElement);
 
-    // Import the main.jsx file which will use the mocked createRoot
-    await import('../src/main.jsx'); // Ajusta la ruta según sea necesario
+    await import('../src/main.jsx');
 
-    // Check if createRoot was called with the root element
     expect(createRoot).toHaveBeenCalledWith(rootElement);
 
-    // Check if the render method was called with the App component wrapped in React.StrictMode
     expect(createRoot().render).toHaveBeenCalledWith(
       <React.StrictMode>
         <App />

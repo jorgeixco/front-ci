@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const URL = 'https://back-ci.onrender.com';
 
 export const useProduct = () => {
   const [products, setProducts] = useState(null);
+  const [product, setProduct] = useState(null);
 
   const getProduct = async () => {
     try {
@@ -18,12 +19,11 @@ export const useProduct = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getProduct();
-  }, []);
-
+  
   return {
     products,
+    product,
+    setProduct,
+    getProduct,
   };
 };
