@@ -4,21 +4,18 @@ env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
-  build-and-test:
+  cypress-run:
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2] # Utiliza 2 instancias paralelas
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -26,35 +23,26 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
 
-      - name: Run unit tests
-        run: npm test
-
-      - name: Install Cypress and wait-on
-        run: npm install cypress wait-on --save-dev
-
-      - name: Start application
-        run: npm start &
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:5173'
+          record: true
+          parallel: true
         env:
-          CI: true
-
-      - name: Wait for application to be ready
-        run: npx wait-on http://localhost:5173
-
-      - name: Run Cypress tests
-        run: npx cypress run --record --key 3d97ffb7-0444-4f0d-b9ff-d5920b8017ee
-
-      - name: Build project
-        run: npm run build
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: cypress-run
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -68,7 +56,7 @@ jobs:
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: npm run build
 
       - name: Deploy Project Artifacts
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
