@@ -31,6 +31,14 @@ jobs:
       - name: Verify Vite Installation
         run: pnpm list vite
 
+      - name: Run Unit Tests
+        run: pnpm test
+        env:
+          CI: true
+
+      - name: Run ESLint
+        run: pnpm run lint
+
       - name: Start application
         run: pnpm start &
         env:
