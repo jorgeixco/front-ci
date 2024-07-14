@@ -75,5 +75,8 @@ jobs:
       - name: Build Project Artifacts
         run: pnpm run build
 
+      - name: Vercel Build
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Deploy Project Artifacts
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
