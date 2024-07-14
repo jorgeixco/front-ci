@@ -36,7 +36,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: pnpm start
+          start: pnpm run dev
           wait-on: 'http://localhost:5173'
           record: true
           parallel: true
