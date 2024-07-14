@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, jest, beforeAll } from '@jest/globals';
-import App from '../src/App'; // Ajusta la ruta según sea necesario
+import App from '../src/App';
 
 jest.mock('react-dom/client', () => ({
   createRoot: jest.fn().mockReturnValue({

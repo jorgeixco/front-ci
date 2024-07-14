@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useProduct } from './hooks/useProduct';
-import {ViewObject} from './component/ViewObject';
+import { ViewObject } from './component/ViewObject';
 
 function App() {
   const { products, product, setProduct, getProduct } = useProduct();
   useEffect(() => {
-    getProduct()
+    getProduct();
   }, []);
-  if(product === null) {
+  if (product === null) {
     return (
       <div className="gradient-bg-welcome w-[100%] h-[100%] p-4 min-h-screen">
         <div className="flex gap-6 border-b-[5px] border-[#e97d05] justify-center w-[95%] m-auto mb-6">
@@ -18,7 +18,9 @@ function App() {
         <ul className="flex w-[70%] flex-wrap justify-center items-center gap-3 m-auto">
           {products?.map((product) => (
             <li
-            onClick={() => setProduct({...product, nameObject: product.name})}
+              onClick={() =>
+                setProduct({ ...product, nameObject: product.name })
+              }
               key={product.id}
               className="h-[460px] w-[30%] bg-white max-w-[415px] min-w-[200px] rounded-[15px] relative shadow-lg justify-center cursor-pointer"
             >
@@ -40,7 +42,7 @@ function App() {
         </ul>
       </div>
     );
-  }else {
+  } else {
     return <ViewObject {...product} setProduct={setProduct} />;
   }
 }

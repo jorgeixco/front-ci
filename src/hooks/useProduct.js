@@ -19,7 +19,7 @@ export const useProduct = () => {
       console.log(error);
     }
   };
-  
+
   return {
     products,
     product,

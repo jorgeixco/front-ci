@@ -109,7 +109,7 @@ describe('App component', () => {
       nameObject: products[0].name,
     });
   });
-  it("not should render the product list", () => {
+  it('not should render the product list', () => {
     useProduct.mockReturnValue({
       products: null,
       product: null,

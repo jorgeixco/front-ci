@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ViewObject = ({ id, name, price, image, nameObject, setProduct }) => {
-
+export const ViewObject = ({
+  id,
+  name,
+  price,
+  image,
+  nameObject,
+  setProduct,
+}) => {
   return (
     <div className="gradient-bg-welcome w-[100%] h-[100%] p-4 min-h-screen">
       <div className="flex gap-6 border-b-[5px] border-[#e97d05] justify-center w-[95%] m-auto mb-6">
@@ -32,7 +38,7 @@ export const ViewObject = ({ id, name, price, image, nameObject, setProduct }) =
       </ul>
       <button
         className="bg-[#e97d05] text-white p-2 rounded-md mt-4 cursor-pointer justify-center flex items-center m-auto w-80"
-        onClick={()=>setProduct(null)}
+        onClick={() => setProduct(null)}
       >
         BACK
       </button>
