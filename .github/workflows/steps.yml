@@ -7,6 +7,24 @@ env:
 on: [push, pull_request]
 
 jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.12.0'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run security scan
+        run: npx audit-ci --config .audit-ci.json
+
   cypress-run:
     runs-on: ubuntu-latest
     strategy:
@@ -14,7 +32,7 @@ jobs:
       matrix:
         containers: [1, 2] # Utiliza 2 instancias paralelas
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -57,7 +75,13 @@ jobs:
       - name: Check for changes
         run: |
           git add .
-          git diff-index --quiet HEAD || git commit -m "Apply formatting changes" && git push
+          git diff-index --quiet HEAD || git commit -m "Apply formatting changes"
+
+      - name: Push changes
+        run: |
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
       - name: Start application
         run: pnpm start &
@@ -80,7 +104,7 @@ jobs:
     needs: cypress-run
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Node.js
