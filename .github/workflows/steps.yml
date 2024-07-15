@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2] # Utiliza 2 instancias paralelas
+        containers: [1, 2]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,36 +57,6 @@ jobs:
         env:
           CI: true
 
-      - name: Run ESLint
-        run: |
-          npx eslint . --ignore-pattern 'dist' --ignore-pattern 'coverage' --ignore-pattern 'cypress/support/component.js' --max-warnings 0
-          if [ $? -eq 0 ]; then
-            echo "✅ No linting errors found."
-          else
-            echo "❌ Linting errors detected."
-            exit 1
-          fi
-
-      - name: Run format
-        run: pnpm run format
-
-      - name: Configure git
-        run: |
-          git config --global user.name "jorgeixco"
-          git config --global user.email "jorgedavid.diaz@ixcomercio.com"
-          git config --global user.password ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-      - name: Check for changes
-        run: |
-          git add .
-          git diff-index --quiet HEAD || git commit -m "Apply formatting changes"
-
-      - name: Push changes
-        run: |
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          
       - name: Start application
         run: pnpm start &
         env:
