@@ -7,46 +7,41 @@ env:
 on: [push, pull_request]
 
 jobs:
-  security-scan:
+  test-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # Security Scan
+      - name: Checkout code for security scan
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js for security scan
         uses: actions/setup-node@v2
         with:
           node-version: '18.12.0'
 
-      - name: Install pnpm
+      - name: Install pnpm for security scan
         run: npm install -g pnpm
 
-      - name: Install dependencies
+      - name: Install dependencies for security scan
         run: pnpm install
 
       - name: Run security scan
         run: npx audit-ci --config .audit-ci.json
 
-  cypress-run:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [1, 2]
-    steps:
-      - name: Checkout code
+      # Cypress Run
+      - name: Checkout code for Cypress run
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js for Cypress run
         uses: actions/setup-node@v2
         with:
           node-version: '18.12.0'
 
-      - name: Install pnpm
+      - name: Install pnpm for Cypress run
         run: npm install -g pnpm
 
-      - name: Install dependencies
+      - name: Install dependencies for Cypress run
         run: pnpm install
 
       - name: Verify Vite Installation
@@ -73,20 +68,16 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: cypress-run
-
-    steps:
-      - name: Checkout code
+      # Deploy
+      - name: Checkout code for deploy
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js for deploy
         uses: actions/setup-node@v2
         with:
           node-version: '18.12.0'
 
-      - name: Install pnpm
+      - name: Install pnpm for deploy
         run: npm install -g pnpm
 
       - name: Install Vercel CLI
@@ -95,7 +86,7 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Install dependencies
+      - name: Install dependencies for deploy
         run: pnpm install
 
       - name: Build Project Artifacts
